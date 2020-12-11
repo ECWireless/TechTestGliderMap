@@ -2,7 +2,6 @@ import React from 'react'
 import './StopInfo.css'
 
 const StopInfo = ({ isInfoLoading, stopInfo }) => {
-  console.log(stopInfo)
     return (
         <div
           style={{

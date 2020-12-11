@@ -13,8 +13,8 @@ const shoppingList = [
 
 export default function Question2 () {
 
-  const [searchText, setSearchText] = useState('');
   const [results, setResults] = React.useState([])
+  const [searchText, setSearchText] = useState('')
 
   useEffect(() => {
     setResults(shoppingList)

@@ -1,13 +1,13 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 
 export default function Question1 () {
 
+  const [ errormessage, setErrorMessage ] = useState('');
   const [ input, setInput ] = useState({
-    title: '',
     body: '',
     id: 1337,
+    title: '',
   })
-  const [ errormessage, setErrorMessage ] = useState('');
 
   useEffect(() => {
     if (input.title === '') {

@@ -3,27 +3,12 @@ import Endpoints from "../util/Endpoints";
 import GliderMap from "../components/GliderMap";
 import StopInfo from "../components/StopInfo";
 
-export default function Question3 (props) {
-  //Displaying real-time metrics for our devices' locations and statuses is a critical component of our reporting strategy.
-  // This allows us to provide accurate, live data to our clients.
-  //
-  // Using Translink's JourneyPlanner API, implement an MVP in React for a real-time reporting dashboard.
-  // What exactly this consists of is up to you, but preferably it will include:
-  // - A map component (or a *very* pretty table, lol)
-  // - A way to locate/inspect stops
-  // - A way to track buses
-  // - Information about the routes available
-  //
-  // As Translink's JourneyPlanner API is supposedly quite complex and undocumented (surprise surprise!) you may find this package useful:
-  // https://github.com/McPo/belfast-glider-api-server
-  //
-  // This file contains the map component and two endpoints to obtain Stop data.
-
-  const [stops, setStops] = useState([]);
+export default function Question3 () {
+  const [isInfoLoading, setIsInfoLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const [selectedStop, setSelectedStop] = useState({});
   const [stopInfo, setStopInfo] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
-  const [isInfoLoading, setIsInfoLoading] = useState(false);
+  const [stops, setStops] = useState([]);
 
   useEffect(() => {
     fetchStops();
