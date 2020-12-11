@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import './App.css';
 import Question1 from "./questions/Question1";
 import Question2 from "./questions/Question2";

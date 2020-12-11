@@ -1,29 +1,43 @@
-import React, { useState } from 'react';
+import FuzzySearch from 'fuzzy-search';
+import React, { useState, useEffect } from 'react';
 
-export default function Question2 (props) {
-  // Situation: Create a search bar that filters items in the list as the user types.
-  // Feel free to refactor as you feel necessary.
+const shoppingList = [
+  'Peanut Butter',
+  'Peas',
+  'Butter',
+  'Beans',
+  'Eggs',
+  'Quiche',
+  'Cheese'
+];
+
+export default function Question2 () {
 
   const [searchText, setSearchText] = useState('');
+  const [results, setResults] = React.useState([])
 
-  const shoppingList = [
-    'Peanut Butter',
-    'Peas',
-    'Butter',
-    'Beans',
-    'Eggs',
-    'Quiche',
-    'Cheese'
-  ];
+  useEffect(() => {
+    setResults(shoppingList)
+}, [])
 
-  const handleSearchTextChange = () => {
+  const handleSearchTextChange = (e) => {
+    setSearchText(e.target.value)
 
+    if (e.target.value === '') {
+      setResults(shoppingList)
+    } else {
+        const searcher = new FuzzySearch(shoppingList, {
+            sort: true,
+        });
+
+        setResults(searcher.search(e.target.value))
+    }
   }
 
   return (
     <div>
-      <input value={searchText} onChange={handleSearchTextChange}/>
-      {shoppingList.map(item => {
+      <input value={searchText} onChange={handleSearchTextChange} type="text"/>
+      {results.map(item => {
         return (
           <div>
             {item}
