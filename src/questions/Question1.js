@@ -1,32 +1,39 @@
 import React, { useState, useEffect } from 'react';
 
-export default function Question1 (props) {
-  // Situation: The TestForm component was written by a junior developer who needs some help getting it to function.
-  // Please modify the TestForm component such that it will correctly use hooks to validate and post to the endpoint.
-  // Feel free to use any (or no) external libraries you feel appropriate.
-  // Endpoint docs: https://jsonplaceholder.typicode.com/guide/
+export default function Question1 () {
 
-  const state = {
+  const [ input, setInput ] = useState({
     title: '',
     body: '',
-    userId: 1337,
-  }
-  const errormessage = '';
+    id: 1337,
+  })
+  const [ errormessage, setErrorMessage ] = useState('');
 
   useEffect(() => {
-    if (state.title.length < 0) {
-      errormessage = "You need to enter a title!"
+    if (input.title === '') {
+      setErrorMessage('You need to enter a title!')
+    } else {
+      setErrorMessage('')
     }
-  }, [state.username]);
+  }, [input.title]);
+
+  const handleOnChange = (e) => {
+      e.persist()
+
+      setInput((prev) => ({
+        ...prev,
+        [e.target.id]: e.target.value
+      }))
+    }
 
   const handleSubmit = () => {
+    if (input.title === '') {
+      return
+    }
+
     fetch('https://jsonplaceholder.typicode.com/posts',{
-      method: 'post',
-      data: JSON.toString({
-        title: state.title,
-        body: state.body,
-        userId: state.UserId
-      }),
+      method: 'POST',
+      body: JSON.stringify(input),
       headers: {
         'Content-type': 'application/json; charset=UTF-8',
       },
@@ -37,25 +44,40 @@ export default function Question1 (props) {
 
   return (
     <div>
-      <div>
-        <div>
+      <div style={{ marginBottom: '10px'}}>
+        <label htmlFor="title" style={{ marginRight: '5px'}}>
           Title:
-        </div>
-        <input name={state.title}/>
+        </label>
+        <input
+          id="title"
+          value={input.title}
+          name={input.title}
+          onChange={handleOnChange}
+        />
       </div>
 
-      <div>
-        <div>
+      <div style={{ marginBottom: '10px'}}>
+        <label htmlFor="body" style={{ marginRight: '5px'}}>
           Body:
-        </div>
-        <input name={state.body}/>
+        </label>
+        <input 
+          id="body"
+          value={input.body}
+          name={input.body}
+          onChange={handleOnChange}
+        />
       </div>
 
-      <div>
-        <div>
-          UserId:
-        </div>
-        <select name={state.userId}>
+      <div style={{ marginBottom: '10px'}}>
+        <label htmlFor="id" style={{ marginRight: '5px'}}>
+          User ID:
+        </label>
+        <select
+          id="id"
+          value={input.id}
+          name={input.id}
+          onChange={handleOnChange}
+        >
           <option>1337</option>
           <option>1234</option>
           <option>1066</option>
@@ -66,7 +88,7 @@ export default function Question1 (props) {
         {errormessage}
       </div>
 
-      <button onClick={handleSubmit()} style={{margin: 10}}>Submit</button>
+      <button onClick={handleSubmit} style={{margin: 10}}>Submit</button>
     </div>
 
   )
