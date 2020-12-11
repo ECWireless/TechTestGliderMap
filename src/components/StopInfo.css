@@ -1,0 +1,19 @@
+.stops-list {
+    border-top: 1px solid lightgrey;
+    overflow: scroll;
+}
+
+.stops-list ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    height: 300px;
+}
+
+.stops-list li {
+    border: 1px solid rgb(241, 241, 241);
+}
+
+.stops-list li:hover {
+    background: rgb(241, 241, 241);
+}

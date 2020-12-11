@@ -6,17 +6,29 @@ const BELFAST_DEFAULT_LOCATION = {
   lng: -5.926437
 }
 
-const GliderMap = withScriptjs(withGoogleMap((props) => {
+const GliderMap = withScriptjs(withGoogleMap(({ fetchStopInfo, selectedStop, stops }) => {
+  const [ isOpen, setIsOpen ] = useState(false)
   return (
+    <>
     <GoogleMap
-      defaultZoom={8}
+      defaultZoom={11}
       defaultCenter={BELFAST_DEFAULT_LOCATION}
+      center={BELFAST_DEFAULT_LOCATION}
     >
-      <Marker
-        position={BELFAST_DEFAULT_LOCATION}
-        label={'Hi!'}
-      />
+      {stops.map(stop => {
+        return (
+          <Marker
+            key={stop.id}
+            name={stop.name}
+            position={{lat: stop.lat, lng: stop.lng}}
+            onClick={() => fetchStopInfo(stop.id)}
+          >
+            {selectedStop.id === stop.id && <InfoWindow><p>{stop.name}</p></InfoWindow>}
+          </Marker>
+        )
+      })}
     </GoogleMap>
+    </>
   )
 }))
 
